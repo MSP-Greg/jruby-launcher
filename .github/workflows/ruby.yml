@@ -1,27 +1,24 @@
 name: Ruby
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest ]
-        ruby: [ jruby-9.2.9.0, jruby-9.2.11.0, jruby-head ]
+        os: [ ubuntu-latest, windows-latest ]
+        ruby: [ jruby-head ]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v2
     - name: Set up JRuby versions
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby-pkgs@master
       with:
         ruby-version: ${{ matrix.ruby }}
+        mingw: _upgrade_
     - name: Build and test with rake
       run: |
         ruby extconf.rb
