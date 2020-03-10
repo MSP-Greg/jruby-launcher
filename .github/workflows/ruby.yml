@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up JRuby versions
-      uses: ruby/setup-ruby-pkgs@master
+      uses: MSP-Greg/setup-ruby-pkgs@master
       with:
         ruby-version: ${{ matrix.ruby }}
         mingw: _upgrade_
